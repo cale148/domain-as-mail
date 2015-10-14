@@ -8,11 +8,10 @@ angular.module('main', [
 .config(function ($stateProvider, $urlRouterProvider) {
 
   // ROUTING with ui.router
-  $urlRouterProvider.otherwise('/main/domains');
+  $urlRouterProvider.otherwise('/domains');
   $stateProvider
     // this state is placed in the <ion-nav-view> in the index.html
     .state('main', {
-      url: '/main',
       abstract: true,
       templateUrl: 'main/templates/menu.html',
       controller: 'MenuCtrl as menu',

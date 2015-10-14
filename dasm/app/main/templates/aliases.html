@@ -1,0 +1,24 @@
+<ion-modal-view>
+  <ion-header-bar>
+    <!-- <div class="buttons">
+      <button class="button" ng-click="doSomething()">Add</button>
+    </div> -->
+    <h1 class="title">My Modal title</h1>
+    <div class="buttons">
+      <button class="button" ng-click="modal.hide()">close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <form class="item item-input-inset" ng-submit="addAlias(newAlias.name)">
+        <label class="item-input-wrapper">
+          <input ng-model="newAlias.name" type="text" placeholder="Alias name" required>
+        </label>
+        <button type="submit" class="button button-small">
+          Add
+        </button>
+      </form>
+      <ion-item ng-repeat="alias in account.aliases">{{ alias }}</ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

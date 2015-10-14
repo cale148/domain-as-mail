@@ -29,6 +29,9 @@ angular.module('main')
       email: {
         query: function (domain) {
           return query('email/list', {params: {domain: domain, page: 1, 'on_page': 1000, direction: 'asc'}});
+        },
+        addAlias: function (params) {
+          return query('email/add_alias', {params: params, method: 'POST'});
         }
       }
     };

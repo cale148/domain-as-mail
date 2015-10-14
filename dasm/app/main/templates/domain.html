@@ -9,7 +9,7 @@
         ng-repeat="account in domain.accounts"
         class="item-avatar item-icon-right"
         type="item-text-wrap"
-        ui-sref="main.alias({login: account.login})">
+        ng-click="domain.showAliases(account)">
         <h2>{{ account.login }}</h2>
         <p>
           {{ account.fio }}

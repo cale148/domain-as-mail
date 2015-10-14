@@ -1,6 +1,6 @@
 'use strict';
 angular.module('main')
-.controller('DomainCtrl', function (PDD, $scope, $stateParams) {
+.controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal) {
   var domain = this;
   domain.name = $stateParams.domain;
   domain.doRefresh = function () {
@@ -19,6 +19,42 @@ angular.module('main')
         // Stop the ion-refresher from spinning
         $scope.$broadcast('scroll.refreshComplete');
       });
-  }
+  };
   domain.doRefresh();
+
+  var $aliasesScope = $scope.$root.$new();
+  var aliasesModal = $ionicModal.fromTemplateUrl('main/templates/aliases.html', {
+    scope: $aliasesScope,
+    animation: 'slide-in-up'
+  });
+  $aliasesScope.newAlias = {
+    name: ''
+  };
+
+  domain.showAliases = function (account) {
+    $aliasesScope.account = account;
+    $aliasesScope.addAlias = function (name) {
+      var params = {
+        domain: domain.name,
+        login: account.login,
+        alias: name
+      };
+      PDD.email.addAlias(params)
+        .then(function (result) {
+          if (result.success && 'ok' === result.success) {
+            angular.extend(account, result.account);
+            $aliasesScope.newAlias.name = '';
+          }
+          else {
+            throw result;
+          }
+        }, function (err) {
+          alert('Error', angular.toJson(err));
+        });
+    };
+    aliasesModal.then(function(modal) {
+      $aliasesScope.modal = modal;
+      modal.show();
+    });
+  };
 });
