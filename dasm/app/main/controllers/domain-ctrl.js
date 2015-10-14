@@ -49,7 +49,7 @@ angular.module('main')
             throw result;
           }
         }, function (err) {
-          alert('Error', angular.toJson(err));
+          alert('Error ' + angular.toJson(err));
         });
     };
     aliasesModal.then(function(modal) {
