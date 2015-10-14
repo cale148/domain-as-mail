@@ -3,23 +3,32 @@ angular.module('main')
 .factory('PDDFactory', function ($http) {
   var URL = 'https://pddimp.yandex.ru/api2/admin/';
   return function (apiKey) {
+    var query = function (urlLocation, params) {
+      var q = angular.extend({
+        url: URL + urlLocation,
+        headers: {
+          PddToken: apiKey
+        }
+      }, params);
+      return $http(q)
+      .then(function (result) {
+        if (result.data.error) {
+          throw new Error(result.data.error);
+        }
+        else {
+          return result.data;
+        }
+      });
+    };
     return {
       domain: {
         query: function () {
-          return $http({
-            url: URL + 'domain/domains',
-            headers: {
-              PddToken: apiKey
-            }
-          })
-          .then(function (result) {
-            if (result.data.error) {
-              throw new Error(result.data.error);
-            }
-            else {
-              return result.data;
-            }
-          })
+          return query('domain/domains')
+        }
+      },
+      email: {
+        query: function (domain) {
+          return query('email/list', {params: {domain: domain, page: 1, 'on_page': 1000, direction: 'asc'}});
         }
       }
     };

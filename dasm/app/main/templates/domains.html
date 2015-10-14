@@ -2,26 +2,26 @@
   <ion-content>
     <ion-refresher
       pulling-text="Pull to refresh..."
-      on-refresh="list.doRefresh()">
+      on-refresh="domains.doRefresh()">
     </ion-refresher>
 
-    <div class="card" ng-if="list.error">
-      <div class="item item-text-wrap" ng-if="'bad_token' === list.error.message">
+    <div class="card" ng-if="domains.error">
+      <div class="item item-text-wrap" ng-if="'bad_token' === domains.error.message">
         Bad token
       </div>
-      <div class="item item-text-wrap" ng-if="'bad_token' !== list.error.message">
-        {{ list.error.message }}
+      <div class="item item-text-wrap" ng-if="'bad_token' !== domains.error.message">
+        {{ domains.error.message }}
       </div>
-      <button class="button button-block" ui-sref="signup" ng-if="'bad_token' === list.error.message">Change token</button>
+      <button class="button button-block" ui-sref="signup" ng-if="'bad_token' === domains.error.message">Change token</button>
     </div>
 
     <!-- content goes here -->
     <ion-list>
       <ion-item
-        ng-repeat="domain in list.domains"
+        ng-repeat="domain in domains.domains"
         class="item-remove-animate item-avatar item-icon-right"
         type="item-text-wrap"
-        ui-sref="main.listDetail">
+        ui-sref="main.domain({domain: domain.name})">
         <img ng-src="{{ domain.logo_url }}" ng-if="domain.logo_url">
         <h2>{{ domain.name }}</h2>
         <p>

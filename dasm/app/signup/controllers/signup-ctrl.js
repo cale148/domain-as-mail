@@ -4,7 +4,7 @@ angular.module('signup')
   this.submit = function () {
     $localForage.setItem('apiKey', this.apiKey)
       .then(function () {
-        return $state.go('main.list');
+        return $state.go('main.domains');
       })
   };
   this.apiKey = apiKey;

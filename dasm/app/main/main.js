@@ -8,7 +8,7 @@ angular.module('main', [
 .config(function ($stateProvider, $urlRouterProvider) {
 
   // ROUTING with ui.router
-  $urlRouterProvider.otherwise('/main/list');
+  $urlRouterProvider.otherwise('/main/domains');
   $stateProvider
     // this state is placed in the <ion-nav-view> in the index.html
     .state('main', {
@@ -32,21 +32,21 @@ angular.module('main', [
         }
       }
     })
-      .state('main.list', {
-        url: '/list',
+      .state('main.domains', {
+        url: '/domains',
         views: {
           'pageContent': {
-            templateUrl: 'main/templates/list.html',
-            controller: 'ListCtrl as list'
+            templateUrl: 'main/templates/domains.html',
+            controller: 'DomainsCtrl as domains'
           }
         }
       })
-      .state('main.listDetail', {
-        url: '/list/detail',
+      .state('main.domain', {
+        url: '/domain/:domain',
         views: {
           'pageContent': {
-            templateUrl: 'main/templates/list-detail.html',
-            // controller: '<someCtrl> as ctrl'
+            templateUrl: 'main/templates/domain.html',
+            controller: 'DomainCtrl as domain'
           }
         }
       })
