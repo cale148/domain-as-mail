@@ -1,0 +1,20 @@
+.full-screen {
+  height: 100vh;
+}
+.flex {
+  display: flex;
+}
+.flex-column {
+  flex-direction: column;
+}
+.flex-full {
+  flex: 1 1 auto;
+  height: auto;
+}
+.text-big-text {
+  font-size: 200%;
+  line-height: 1.5;
+}
+.text-code {
+  font-family: monospace;
+}

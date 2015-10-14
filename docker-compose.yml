@@ -1,0 +1,10 @@
+app:
+  build: dasm
+  dockerfile: Dockerfile
+  ports:
+    - "3000:3000"
+    - "3001:3001"
+  volumes:
+    - ./dasm:/app
+    - /opt/gradle-cache:/home/app/.gradle
+    - /dev/bus/usb:/dev/bus/usb
