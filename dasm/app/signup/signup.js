@@ -10,6 +10,11 @@ angular.module('signup', [
     .state('signup', {
       url: '/signup',
       templateUrl: 'signup/templates/signup.html',
-      controller: 'SignupCtrl as signup'
+      controller: 'SignupCtrl as signup',
+      resolve: {
+        apiKey: function ($localForage) {
+          return $localForage.getItem('apiKey');
+        }
+      }
     })
 });

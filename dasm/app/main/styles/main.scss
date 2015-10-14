@@ -21,4 +21,6 @@ $ionicons-font-path: "../assets/fonts" !default;
 // Include all of Ionic
 @import "../../bower_components/ionic/scss/ionic";
 
-
+.comma + .comma:before {
+    content: ", ";
+}

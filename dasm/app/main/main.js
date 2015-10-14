@@ -17,7 +17,7 @@ angular.module('main', [
       templateUrl: 'main/templates/menu.html',
       controller: 'MenuCtrl as menu',
       resolve: {
-        apiKey: function($localForage, $state) {
+        apiKey: function ($localForage, $state) {
           return $localForage.getItem('apiKey')
             .then(function (apkKey) {
               if (apkKey) {
@@ -26,6 +26,9 @@ angular.module('main', [
                 return $state.go('signup');
               }
             })
+        },
+        PDD: function (apiKey, PDDFactory) {
+          return PDDFactory(apiKey);
         }
       }
     })

@@ -50,16 +50,18 @@
     <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script src="bower_components/angular-localForage/dist/angular-localForage.js"></script>
+    <script src="bower_components/punycode/punycode.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js scripts/app.js -->
     <!-- inject:js -->
     <script src="signup/signup.js"></script>
-    <script src="signup/services/signup-serv.js"></script>
     <script src="signup/controllers/signup-ctrl.js"></script>
     <script src="main/main.js"></script>
+    <script src="main/services/pdd-serv.js"></script>
     <script src="main/services/main-serv.js"></script>
+    <script src="main/filters/idn-fil.js"></script>
     <script src="main/controllers/menu-ctrl.js"></script>
     <script src="main/controllers/list-ctrl.js"></script>
     <script src="main/controllers/debug-ctrl.js"></script>
