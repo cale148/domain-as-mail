@@ -31,6 +31,47 @@ angular.module('main')
     name: ''
   };
 
+  var $mailboxScope = $scope.$root.$new();
+  var mailboxModal = $ionicModal.fromTemplateUrl('main/templates/mailbox.html', {
+    scope: $mailboxScope,
+    animation: 'slide-in-up'
+  });
+  $mailboxScope.newBox = {
+    login: '',
+    password: ''
+  };
+
+  domain.addMailbox = function () {
+    $mailboxScope.domain = domain.name;
+    $mailboxScope.addMailbox = function (login, password) {
+      var params = {
+        domain: domain.name,
+        login: login.toLowerCase(),
+        password: password.toLowerCase()
+      };
+      PDD.email.addMailbox(params)
+        .then(function (result) {
+          if (result.success && 'ok' === result.success) {
+            domain.doRefresh();
+            $mailboxScope.modal.hide();
+            $mailboxScope.newBox = {
+              login: '',
+              password: ''
+            };
+          }
+          else {
+            throw result;
+          }
+        }, function (err) {
+          alert('Error ' + angular.toJson(err));
+        });
+    };
+    mailboxModal.then(function (modal) {
+      $mailboxScope.modal = modal;
+      modal.show();
+    });
+  };
+
   domain.showAliases = function (account) {
     $aliasesScope.account = account;
     $aliasesScope.addAlias = function (name) {

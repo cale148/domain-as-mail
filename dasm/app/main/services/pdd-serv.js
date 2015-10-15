@@ -35,6 +35,9 @@ angular.module('main')
         },
         delAlias: function (params) {
           return query('email/del_alias', {params: params, method: 'POST'});
+        },
+        addMailbox: function (params) {
+          return query('email/add', {params: params, method: 'POST'});
         }
       }
     };
