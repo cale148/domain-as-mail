@@ -6,5 +6,6 @@ app:
     - "3001:3001"
   volumes:
     - ./dasm:/app
+    - ./keys/dasm-release-key.keystore:/dasm-release-key.keystore
     - /opt/gradle-cache:/home/app/.gradle
     - /dev/bus/usb:/dev/bus/usb
