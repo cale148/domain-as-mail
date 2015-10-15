@@ -5,6 +5,11 @@ var requireDir = require('require-dir');
 var chalk = require('chalk');
 var fs = require('fs');
 
+process.on('SIGINT', function() {
+  process.stdout.write("\n");
+  process.exit(2);
+});
+
 // config
 gulp.paths = {
   dist: 'www',
