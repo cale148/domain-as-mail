@@ -42,7 +42,21 @@ angular.module('main')
   };
 
   domain.deleteMailbox = function (account) {
-    console.log(account);
+    var params = {
+      domain: domain.name,
+      uid: account.uid
+    };
+    PDD.email.removeMailbox(params)
+      .then(function (result) {
+        if (result.success && 'ok' === result.success) {
+          domain.doRefresh();
+        }
+        else {
+          throw result;
+        }
+      }, function (err) {
+        alert('Error ' + angular.toJson(err));
+      });
   };
 
   domain.addMailbox = function () {

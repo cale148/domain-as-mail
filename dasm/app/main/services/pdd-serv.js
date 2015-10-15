@@ -38,6 +38,9 @@ angular.module('main')
         },
         addMailbox: function (params) {
           return query('email/add', {params: params, method: 'POST'});
+        },
+        removeMailbox: function (params) {
+          return query('email/del', {params: params, method: 'POST'});
         }
       }
     };
