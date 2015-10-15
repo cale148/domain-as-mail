@@ -2,16 +2,20 @@
   <ion-nav-buttons side="right">
     <button class="button button-icon icon ion-ios-plus-empty" ng-click="domain.addMailbox()">
     </button>
+    <button class="button button-icon icon ion-ios-minus-outline" ng-click="domain.shouldShowDelete = !domain.shouldShowDelete">
+    </button>
   </ion-nav-buttons>
+
   <ion-content>
     <ion-refresher
       pulling-text="Pull to refresh..."
       on-refresh="domain.doRefresh()">
     </ion-refresher>
-    <ion-list>
+    <ion-list
+      show-delete="domain.shouldShowDelete">
       <ion-item
         ng-repeat="account in domain.accounts"
-        class="item-avatar item-icon-right"
+        class="item-icon-right"
         type="item-text-wrap"
         ng-click="domain.showAliases(account)">
         <h2>{{ account.login }}</h2>
@@ -19,6 +23,9 @@
           {{ account.fio }}
         </p>
         <i class="icon ion-chevron-right icon-accessory"></i>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="domain.deleteMailbox(account)">
+        </ion-delete-button>
       </ion-item>
     </ion-list>
   </ion-content>

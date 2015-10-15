@@ -2,6 +2,7 @@
 angular.module('main')
 .controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal) {
   var domain = this;
+  domain.shouldShowDelete = false;
   domain.name = $stateParams.domain;
   domain.doRefresh = function () {
     return PDD.email.query(domain.name)
@@ -39,6 +40,10 @@ angular.module('main')
   $mailboxScope.newBox = {
     login: '',
     password: ''
+  };
+
+  domain.deleteMailbox = function (account) {
+    console.log(account);
   };
 
   domain.addMailbox = function () {
