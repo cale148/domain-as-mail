@@ -7,7 +7,6 @@ angular.module('main')
   domain.doRefresh = function () {
     return PDD.email.query(domain.name)
       .then(function (result) {
-        console.log(result);
         domain.accounts = result.accounts || [];
         // console.log(domain.domain);
         domain.error = null;
@@ -64,11 +63,14 @@ angular.module('main')
               password: ''
             };
           }
+          else if (result.error) {
+            throw new Error(result.error);
+          }
           else {
-            throw result;
+            throw new Error(angular.toJson(result));
           }
         }, function (err) {
-          alert('Error ' + angular.toJson(err));
+          alert('Error ' + err.message);
         });
     };
     mailboxModal.then(function (modal) {
