@@ -3,7 +3,7 @@ angular.module('signup')
 .controller('SignupCtrl', function ($window, $state, $localForage, apiKey) {
   var signup = this;
   signup.getApiKey = function () {
-    var url = 'https://pddimp.yandex.ru/api2/registrar/get_token';
+    var url = 'https://pddimp.yandex.ru/api2/admin/get_token';
     return $window.open(url, '_system', 'location=yes');
   };
   signup.submit = function () {
