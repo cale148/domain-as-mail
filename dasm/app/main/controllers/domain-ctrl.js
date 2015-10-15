@@ -1,6 +1,6 @@
 'use strict';
 angular.module('main')
-.controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal) {
+.controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal, $ionicPopup) {
   var domain = this;
   domain.shouldShowDelete = false;
   domain.name = $stateParams.domain;
@@ -46,17 +46,24 @@ angular.module('main')
       domain: domain.name,
       uid: account.uid
     };
-    PDD.email.removeMailbox(params)
-      .then(function (result) {
-        if (result.success && 'ok' === result.success) {
-          domain.doRefresh();
-        }
-        else {
-          throw result;
-        }
-      }, function (err) {
-        alert('Error ' + angular.toJson(err));
-      });
+    $ionicPopup.confirm({
+      title: 'Confirm delete',
+      template: 'Are you sure you want to remove ' + account.login + ' mailbox?'
+    }).then(function (res) {
+      if (res) {
+        PDD.email.removeMailbox(params)
+          .then(function (result) {
+            if (result.success && 'ok' === result.success) {
+              domain.doRefresh();
+            }
+            else {
+              throw result;
+            }
+          }, function (err) {
+            alert('Error ' + angular.toJson(err));
+          });
+      }
+    });
   };
 
   domain.addMailbox = function () {
