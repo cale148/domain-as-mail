@@ -18,7 +18,7 @@
           Add
         </button>
       </form>
-      <ion-item ng-repeat="alias in account.aliases">{{ alias }}</ion-item>
+      <ion-item ng-repeat="alias in account.aliases | filter:newAlias.name">{{ alias }}</ion-item>
     </ion-list>
   </ion-content>
 </ion-modal-view>
