@@ -1,0 +1,12 @@
+{
+  "name": "Domain as Mail",
+  "app_id": "com.clonix.dasm",
+  "gulpStartupTasks": [],
+  "browsers": [
+    {
+      "platform": "android",
+      "browser": "crosswalk-lite",
+      "version": "10.39.236.1"
+    }
+  ]
+}
