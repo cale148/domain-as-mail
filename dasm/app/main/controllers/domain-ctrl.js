@@ -37,7 +37,7 @@ angular.module('main')
       var params = {
         domain: domain.name,
         login: account.login,
-        alias: name
+        alias: name.toLowerCase()
       };
       PDD.email.addAlias(params)
         .then(function (result) {
