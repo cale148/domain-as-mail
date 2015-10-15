@@ -32,6 +32,9 @@ angular.module('main')
         },
         addAlias: function (params) {
           return query('email/add_alias', {params: params, method: 'POST'});
+        },
+        delAlias: function (params) {
+          return query('email/del_alias', {params: params, method: 'POST'});
         }
       }
     };

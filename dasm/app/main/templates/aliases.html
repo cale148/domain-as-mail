@@ -18,7 +18,14 @@
           Add
         </button>
       </form>
-      <ion-item ng-repeat="alias in account.aliases | filter:newAlias.name">{{ alias }}</ion-item>
+      <ion-item ng-repeat="alias in account.aliases | filter:newAlias.name">
+        {{ alias }}
+
+        <ion-option-button class="button-assertive"
+                           ng-click="delAlias(alias)">
+          Delete
+        </ion-option-button>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-modal-view>

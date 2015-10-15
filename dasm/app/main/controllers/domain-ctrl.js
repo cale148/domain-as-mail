@@ -52,7 +52,25 @@ angular.module('main')
           alert('Error ' + angular.toJson(err));
         });
     };
-    aliasesModal.then(function(modal) {
+    $aliasesScope.delAlias = function (name) {
+      var params = {
+        domain: domain.name,
+        login: account.login,
+        alias: name
+      };
+      PDD.email.delAlias(params)
+        .then(function (result) {
+          if (result.success && 'ok' === result.success) {
+            angular.extend(account, result.account);
+          }
+          else {
+            throw result;
+          }
+        }, function (err) {
+          alert('Error ' + angular.toJson(err));
+        });
+    };
+    aliasesModal.then(function (modal) {
       $aliasesScope.modal = modal;
       modal.show();
     });
