@@ -1,11 +1,11 @@
 <ion-modal-view>
-  <ion-header-bar>
+  <ion-header-bar class="bar-royal">
     <!-- <div class="buttons">
       <button class="button" ng-click="doSomething()">Add</button>
     </div> -->
-    <h1 class="title">Aliases of {{ account.login }}</h1>
+    <h1 class="title">Aliases for {{ account.login }}</h1>
     <div class="buttons">
-      <button class="button" ng-click="modal.hide()">close</button>
+      <button class="button button-clear" ng-click="modal.hide()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
@@ -14,8 +14,7 @@
         <label class="item-input-wrapper">
           <input ng-model="newAlias.name" type="text" placeholder="Alias name" required>
         </label>
-        <button type="submit" class="button button-small">
-          Add
+        <button type="submit" class="button button-icon icon ion-plus-circled royal">
         </button>
       </form>
       <ion-item ng-repeat="alias in account.aliases | filter:newAlias.name">
