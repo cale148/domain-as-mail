@@ -1,6 +1,6 @@
 'use strict';
 angular.module('main')
-.controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal, $ionicPopup) {
+.controller('DomainCtrl', function (PDD, $scope, $stateParams, $ionicModal, $ionicPopup, $window) {
   var domain = this;
   domain.shouldShowDelete = false;
   domain.name = $stateParams.domain;
@@ -20,7 +20,44 @@ angular.module('main')
         $scope.$broadcast('scroll.refreshComplete');
       });
   };
-  domain.doRefresh();
+
+  var exampleAliases = [
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com',
+    $window.faker.internet.userName().toLowerCase() + '@example.com'
+  ]
+  domain.accounts = [
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases },
+    { login: $window.faker.internet.userName().toLowerCase() + '@example.com', fio: $window.faker.name.findName(), aliases: exampleAliases }
+  ];
+  // domain.doRefresh();
 
   var $aliasesScope = $scope.$root.$new();
   var aliasesModal = $ionicModal.fromTemplateUrl('main/templates/aliases.html', {
@@ -37,7 +74,7 @@ angular.module('main')
     animation: 'slide-in-up'
   });
   $mailboxScope.newBox = {
-    login: '',
+    login: $window.faker.internet.userName().toLowerCase(),
     password: ''
   };
 
