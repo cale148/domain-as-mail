@@ -2,11 +2,17 @@
   <ion-content scroll="false">
     <form ng-submit="signup.submit()" method="post">
       <div class="list flex full-screen flex-column">
-        <button type="button" class="button button-assertive" ng-click="signup.getApiKey()">Get API KEY</button>
+        <div class="padding">
+          <a href="https://pddimp.yandex.ru/api2/admin/get_tokenx" target="_blank" ng-click="signup.getApiKey()">
+            Get your API KEY
+          </a>
+        </div>
         <label class="item item-input flex-full flex flex-column">
-          <textarea class="flex-full text-big-text text-code" name="name" ng-model="signup.apiKey" placeholder="API KEY" rows="8" cols="40" autofocus></textarea>
+          <textarea class="flex-full text-big-text text-code" name="name" ng-model="signup.apiKey" placeholder="Enter API KEY here…" rows="8" cols="40" autofocus></textarea>
         </label>
-        <button type="submit" class="button button-balanced" name="button">Save</button>
+        <div class="padding">
+          <button type="submit" class="button button-block button-balanced" name="button">Save</button>
+        </div>
       </div>
     </form>
 </ion-content>

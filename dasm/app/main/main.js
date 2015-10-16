@@ -14,7 +14,6 @@ angular.module('main', [
     .state('main', {
       abstract: true,
       templateUrl: 'main/templates/menu.html',
-      controller: 'MenuCtrl as menu',
       resolve: {
         apiKey: function ($localForage, $state) {
           return $localForage.getItem('apiKey')
@@ -46,15 +45,6 @@ angular.module('main', [
           'pageContent': {
             templateUrl: 'main/templates/domain.html',
             controller: 'DomainCtrl as domain'
-          }
-        }
-      })
-      .state('main.debug', {
-        url: '/debug',
-        views: {
-          'pageContent': {
-            templateUrl: 'main/templates/debug.html',
-            controller: 'DebugCtrl as ctrl'
           }
         }
       });
