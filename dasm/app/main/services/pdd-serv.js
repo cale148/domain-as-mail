@@ -24,6 +24,9 @@ angular.module('main')
       domain: {
         query: function () {
           return query('domain/domains')
+        },
+        register: function (domain) {
+          return query('domain/register', {params: {domain: domain}, method: 'POST'});
         }
       },
       email: {
