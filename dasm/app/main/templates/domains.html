@@ -29,6 +29,7 @@
         ui-sref="main.domain({domain: domain.name})">
         <img ng-src="{{ domain.logo_url }}" ng-if="domain.logo_url">
         <h2>{{ domain.name }}</h2>
+        <sup ng-if="'added' != domain.status">{{ domains.statusTitles[domain.status] || domain.status }}</sup>
         <p>
           <span class="comma" ng-repeat="alias in domain.aliases">{{ alias | idn }}</span>
         </p>

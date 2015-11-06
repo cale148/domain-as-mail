@@ -2,6 +2,19 @@
 angular.module('main')
 .controller('DomainsCtrl', function ($log, $scope, $ionicModal, PDD) {
   var domains = this;
+
+  domains.statusTitles = {
+    'domain-activate': 'не подтвержден',
+    'mx-activate': 'подтвержден, MX-запись не настроена',
+    'added': 'домен подтвержден'
+  };
+
+  domains.statusClasses = {
+    'domain-activate': 'light',
+    'mx-activate': 'royal',
+    'added': 'stable'
+  };
+
   domains.doRefresh = function () {
     return PDD.domain.query()
       .then(function (result) {
