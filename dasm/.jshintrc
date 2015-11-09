@@ -1,0 +1,30 @@
+{
+  "node": true,
+  "esnext": true,
+  "bitwise": true,
+  "curly": true,
+  "eqeqeq": true,
+  "immed": true,
+  "indent": 2,
+  "asi": true,
+  "latedef": true,
+  "newcap": true,
+  "noarg": true,
+  "quotmark": "single",
+  "regexp": true,
+  "undef": true,
+  "unused": true,
+  "strict": true,
+  "trailing": true,
+  "smarttabs": true,
+  "expr": true,
+
+  "globals": {
+    "angular": false,
+    "atob": false,
+    "Blob": false,
+    "Twilio": false,
+    "location": false,
+    "navigator": false
+  }
+}

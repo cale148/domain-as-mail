@@ -24,7 +24,7 @@
     <ion-list>
       <ion-item
         ng-repeat="domain in domains.domains"
-        class="item-remove-animate item-avatar item-icon-right"
+        class="item-avatar item-icon-right"
         type="item-text-wrap"
         ui-sref="main.domain({domain: domain.name})">
         <img ng-src="{{ domain.logo_url }}" ng-if="domain.logo_url">
