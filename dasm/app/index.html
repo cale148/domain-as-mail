@@ -35,6 +35,13 @@
 
     <!-- will be a 404 during development -->
     <script src="cordova.js"></script>
+    <script>
+    // enable logs
+    if (!localStorage.debug || 'undefined' === localStorage.debug) {
+      localStorage.setItem('debug', 'app:*')
+    }
+    </script>
+
 
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
@@ -51,6 +58,8 @@
     <script src="bower_components/localforage/dist/localforage.js"></script>
     <script src="bower_components/angular-localForage/dist/angular-localForage.js"></script>
     <script src="bower_components/punycode/punycode.js"></script>
+    <script src="bower_components/bower-debug/debug.js"></script>
+    <script src="bower_components/angular-debug/dist/angular-debug.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 

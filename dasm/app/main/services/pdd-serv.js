@@ -1,6 +1,6 @@
 'use strict'
 angular.module('main')
-.factory('PDDFactory', function ($http, Config) {
+.factory('getPDDForKey', function ($http, Config) {
   var URL = Config.ENV.URL
   return function (apiKey) {
     var query = function (urlLocation, params) {
@@ -27,6 +27,17 @@ angular.module('main')
         },
         register: function (domain) {
           return query('domain/register', {params: {domain: domain}, method: 'POST'})
+        }
+      },
+      deputy: {
+        list: function (domain) {
+          return query('deputy/list', {params: {domain: domain}, method: 'POST'})
+        },
+        add: function (params) {
+          return query('deputy/add', {params: params, method: 'POST'})
+        },
+        'delete': function (params) {
+          return query('deputy/delete', {params: params, method: 'POST'})
         }
       },
       email: {
