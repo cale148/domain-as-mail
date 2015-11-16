@@ -1,11 +1,10 @@
-app:
-  build: dasm
-  dockerfile: Dockerfile
+appm:
+  image: 3apaxicom/generator-m-ionic
   ports:
     - "3000:3000"
     - "3001:3001"
   volumes:
-    - ./dasm:/app
-    - ./keys/dasm-release-key.keystore:/dasm-release-key.keystore
+    - ./dasm:/appm
+    - ./keys/dasm-release-key.keystore:/appm-release-key.keystore
     - /opt/gradle-cache:/home/app/.gradle
     - /dev/bus/usb:/dev/bus/usb
