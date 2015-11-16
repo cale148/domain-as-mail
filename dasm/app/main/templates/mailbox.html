@@ -1,28 +1,48 @@
-<ion-modal-view>
-  <ion-header-bar class="bar-royal">
-    <h1 class="title">New mailbox for {{ domain }}</h1>
-    <div class="buttons">
-      <button class="button button-clear" ng-click="modal.hide()">Close</button>
-    </div>
-  </ion-header-bar>
+<ion-view view-title="{{ mailbox.login }}">
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="mailbox.doRefresh()">
+    </ion-refresher>
     <ion-list>
-      <form ng-submit="addMailbox(newBox.login, newBox.password)">
-        <label class="item item-input item-stacked-label">
-        <span class="input-label">Login</span>
-        <input type="text" ng-model="newBox.login" required>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Фамилия</span>
+        <input type="text" ng-model="mailbox.account.fname">
+      </label>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Имя</span>
+        <input type="text" ng-model="mailbox.account.iname">
+      </label>
+      <div class="item item-toggle">
+        Заблокирован
+        <label class="toggle toggle-assertive">
+          <input type="checkbox" ng-model="mailbox.account.blocked">
+          <div class="track">
+            <div class="handle"></div>
+          </div>
         </label>
-        <label class="item item-input item-stacked-label">
-          <span class="input-label">Password</span>
-
-          <input type="text" ng-model="newBox.password" required>
-        </label>
-        <div class="padding">
-          <button type="submit" class="button button-balanced button-full">
-            Create new
-          </button>
-        </div>
-      </form>
+      </div>
+      <label class="item item-input item-stacked-label">
+        <span class="input-label">Пароль</span>
+        <input type="password" ng-model="mailbox.account.password">
+      </label>
+      <ion-item class="item-icon-right" ng-click="mailbox.showAliases(mailbox.account)">
+        <i class="icon ion-ios-more"></i>
+        Управление алиасами
+      </ion-item>
     </ion-list>
+    <div class="padding">
+      <button ng-click="mailbox.saveMailbox()" class="button button-balanced double-button">
+        Сохранить
+      </button>
+      <button ng-click="mailbox.goBack()" class="button button-dark button-clear double-button">
+        Отмена
+      </button>
+    </div>
+    <div class="padding">
+      <button ng-click="mailbox.deleteMailbox()" class="button button-clear button-assertive button-full">
+        Удалить ящик
+      </button>
+    </div>
   </ion-content>
-</ion-modal-view>
+</ion-view>

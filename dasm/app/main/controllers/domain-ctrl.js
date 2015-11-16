@@ -54,7 +54,7 @@ angular.module('main')
   }
 
   var $mailboxScope = $scope.$root.$new()
-  var mailboxModal = $ionicModal.fromTemplateUrl('main/templates/mailbox.html', {
+  var mailboxModal = $ionicModal.fromTemplateUrl('main/templates/mailbox_add.html', {
     scope: $mailboxScope,
     animation: 'slide-in-up'
   })

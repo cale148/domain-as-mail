@@ -40,4 +40,13 @@ angular.module('main', [])
         }
       }
     })
+    .state('main.mailbox', {
+      url: '/domain/:domain/mailbox/:login',
+      views: {
+        'pageContent': {
+          templateUrl: 'main/templates/mailbox.html',
+          controller: 'MailboxCtrl as mailbox'
+        }
+      }
+    })
 })

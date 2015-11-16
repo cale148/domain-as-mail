@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-royal">
+    <h1 class="title">New mailbox for {{ domain }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modal.hide()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <form ng-submit="addMailbox(newBox.login, newBox.password)">
+        <label class="item item-input item-stacked-label">
+        <span class="input-label">Login</span>
+        <input type="text" ng-model="newBox.login" required>
+        </label>
+        <label class="item item-input item-stacked-label">
+          <span class="input-label">Password</span>
+
+          <input type="text" ng-model="newBox.password" required>
+        </label>
+        <div class="padding">
+          <button type="submit" class="button button-balanced button-full">
+            Create new
+          </button>
+        </div>
+      </form>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

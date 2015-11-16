@@ -21,7 +21,7 @@
         ng-repeat="account in domain.accounts"
         class="item-icon-right"
         type="item-text-wrap"
-        ng-click="domain.showAliases(account)">
+        ui-sref="main.mailbox({domain: domain.name, login: account.login})">
         <h2>{{ account.login }}</h2>
         <p>
           {{ account.fio }}
@@ -36,7 +36,7 @@
         <i class="icon ion-ios-plus-empty"></i>
         Добавить ящик
       </ion-item>
-      
+
       <ion-item class="item-divider item-icon-right">
         <i class="icon ion-ios-people"></i>
         Администраторы
