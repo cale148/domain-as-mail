@@ -44,6 +44,9 @@ angular.module('main')
   }
   domain.doRefresh()
 
+  domain.isBlocked = function (account) {
+    return 'no' === account.enabled
+  }
   var $aliasesScope = $scope.$root.$new()
   var aliasesModal = $ionicModal.fromTemplateUrl('main/templates/aliases.html', {
     scope: $aliasesScope,

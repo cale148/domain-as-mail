@@ -43,6 +43,7 @@ angular.module('main')
           mailbox.account = result.account || {}
           mailbox.account.blocked = 'yes' !== mailbox.account.enabled
           log('mailbox saved ' + mailbox.account)
+          mailbox.goBack()
         })
         .catch(function (err) {
           log('error code: ' + err)

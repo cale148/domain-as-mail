@@ -22,7 +22,7 @@
         class="item-icon-right"
         type="item-text-wrap"
         ui-sref="main.mailbox({domain: domain.name, login: account.login})">
-        <h2>{{ account.login }}</h2>
+        <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
         <p>
           {{ account.fio }}
         </p>
