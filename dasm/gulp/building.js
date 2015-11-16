@@ -11,6 +11,7 @@ var vinylPaths = require('vinyl-paths');
 
 var buildDependencies = [
   options['force-build'] ? 'linting' : 'linting-throw',
+  'build-copy-env',
   'build-app',
   'build-templates',
   'build-assets'
@@ -26,6 +27,11 @@ gulp.task('clean', function () {
     .pipe(vinylPaths(del));
 });
 
+gulp.task('build-copy-env', ['clean'], function () {
+  return gulp.src('env/' + options.env + '/**/*.*')
+    .pipe(gulp.dest(paths.dist));
+})
+
 // concatenate files in build:blocks inside index.html
 // and copy to build folder destinations
 gulp.task('build-app', ['clean', 'inject-all'], function () {
@@ -34,6 +40,27 @@ gulp.task('build-app', ['clean', 'inject-all'], function () {
   var cssFilter = $.filter('**/*.css', {restore: true});
 
   var stream = gulp.src('app/index.html') // main html file
+    .pipe(
+      $.inject(
+        gulp.src('app/main/constants/env-' + options.env + '.json'),
+        {
+          starttag: '<!-- inject:base -->',
+          endtag: '<!-- endinject -->',
+          transform: function (filePath, file) {
+            var json;
+            try {
+              json = JSON.parse(file.contents.toString('utf8'));
+            }
+            catch (e) {
+              console.log(e);
+            }
+
+            if (json && json.BASE_HREF) {
+              return '<base href="' + json.BASE_HREF + '">'
+            }
+            return '';
+          }
+        }))
     .pipe(assets); // all assets (without index.html)
 
   if (options.minify) {
