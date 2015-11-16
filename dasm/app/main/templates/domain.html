@@ -36,25 +36,26 @@
         <i class="icon ion-ios-plus-empty"></i>
         Добавить ящик
       </ion-item>
-
-      <ion-item class="item-divider item-icon-right">
-        <i class="icon ion-ios-people"></i>
-        Администраторы
-      </ion-item>
-      <ion-item ng-repeat="login in domain.deputies" type="item-text-wrap">
-        <h2>{{ login }}</h2>
-        <ion-delete-button class="ion-minus-circled"
-                           ng-click="domain.deleteDeputy(login)">
-        </ion-delete-button>
-        <ion-option-button class="button-assertive"
-                           ng-click="domain.deleteDeputy(login)">
-          Delete
-        </ion-option-button>
-      </ion-item>
-      <ion-item class="item-icon-left" ng-click="domain.addDeputy()">
-        <i class="icon ion-ios-plus-empty"></i>
-        Добавить администратора
-      </ion-item>
+      <div ng-if="domain.owner">
+        <ion-item class="item-divider item-icon-right">
+          <i class="icon ion-ios-people"></i>
+          Администраторы
+        </ion-item>
+        <ion-item ng-repeat="login in domain.deputies" type="item-text-wrap">
+          <h2>{{ login }}</h2>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="domain.deleteDeputy(login)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="domain.deleteDeputy(login)">
+            Delete
+          </ion-option-button>
+        </ion-item>
+        <ion-item class="item-icon-left" ng-click="domain.addDeputy()">
+          <i class="icon ion-ios-plus-empty"></i>
+          Добавить администратора
+        </ion-item>
+      </div>
     </ion-list>
 
   </ion-content>

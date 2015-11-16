@@ -13,9 +13,13 @@ angular.module('main')
       return $http(q)
       .then(function (result) {
         if (result.data.error) {
-          throw new Error(result.data.error)
-        }
-        else {
+          switch (result.data.error) {
+            case 'no_master_admin':
+              return false
+            default:
+              throw new Error(result.data.error)
+          }
+        } else {
           return result.data
         }
       })
