@@ -5,8 +5,8 @@
   "browsers": [
     {
       "platform": "android",
-      "browser": "crosswalk-lite",
-      "version": "10.39.236.1"
+      "browser": "crosswalk",
+      "version": "14.42.334.0"
     }
   ]
 }
