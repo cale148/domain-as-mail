@@ -12,34 +12,44 @@
     </ion-refresher>
     <ion-list
       show-delete="domain.shouldShowDelete">
-      <ion-item class="item-divider item-icon-right">
-        <i class="icon ion-ios-email-outline"></i>
-        Почтовые ящики
-      </ion-item>
+      <form ng-submit="domain.addMailbox()">
+        <ion-item class="item-divider item-icon-right">
+          <i class="icon ion-ios-email-outline"></i>
+          Почтовые ящики
+        </ion-item>
 
-      <ion-item
-        ng-repeat="account in domain.accounts"
-        class="item-icon-right"
-        type="item-text-wrap"
-        ui-sref="main.mailbox({domain: domain.name, login: account.login})">
-        <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
-        <p>
-          {{ account.fio }}
-        </p>
-        <i class="icon ion-chevron-right icon-accessory"></i>
-        <ion-delete-button class="ion-minus-circled"
-                           ng-click="domain.deleteMailbox(account)">
-        </ion-delete-button>
-        <ion-option-button class="button-assertive"
-                           ng-click="domain.deleteMailbox(account)">
-          Delete
-        </ion-option-button>
-      </ion-item>
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input ng-model="newAccount.login" type="text" placeholder="Поиск" required>
+          </label>
+        </div>
 
-      <ion-item class="item-icon-left" ng-click="domain.addMailbox()">
-        <i class="icon ion-ios-plus-empty"></i>
-        Добавить ящик
-      </ion-item>
+        <ion-item
+          ng-repeat="account in domain.accounts|filter:newAccount.login"
+          class="item-icon-right"
+          type="item-text-wrap"
+          ui-sref="main.mailbox({domain: domain.name, login: account.login})">
+          <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
+          <p>
+            {{ account.fio }}
+          </p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="domain.deleteMailbox(account)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="domain.deleteMailbox(account)">
+            Delete
+          </ion-option-button>
+        </ion-item>
+
+        <ion-item class="item-icon-left" ng-click="domain.addMailbox()">
+          <i class="icon ion-ios-plus-empty"></i>
+          Добавить
+          {{ '' === newAccount.login + '' ? 'ящик' : newAccount.login + '@' + domain.name }}
+        </ion-item>
+      </form>
+
       <div ng-if="domain.owner">
         <ion-item class="item-divider item-icon-right">
           <i class="icon ion-ios-people"></i>

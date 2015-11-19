@@ -1,5 +1,5 @@
 appm:
-  image: 3apaxicom/generator-m-ionic:0.0.3
+  image: 3apaxicom/generator-m-ionic:0.0.4
   ports:
     - "3000:3000"
     - "3001:3001"

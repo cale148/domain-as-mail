@@ -63,16 +63,6 @@ angular.module('main')
     name: ''
   }
 
-  var $mailboxScope = $scope.$root.$new()
-  var mailboxModal = $ionicModal.fromTemplateUrl('main/templates/mailbox_add.html', {
-    scope: $mailboxScope,
-    animation: 'slide-in-up'
-  })
-  $mailboxScope.newBox = {
-    login: '',
-    password: ''
-  }
-
   domain.deleteMailbox = function (account) {
     var params = {
       domain: domain.name,
@@ -98,8 +88,17 @@ angular.module('main')
     })
   }
 
+  $scope.newAccount = {
+    login: '',
+    password: ''
+  }
+  var $mailboxScope = $scope.$new()
+  var mailboxModal = $ionicModal.fromTemplateUrl('main/templates/mailbox_add.html', {
+    scope: $mailboxScope,
+    animation: 'slide-in-up'
+  })
+
   domain.addMailbox = function () {
-    $mailboxScope.domain = domain.name
     $mailboxScope.addMailbox = function (login, password) {
       var params = {
         domain: domain.name,
@@ -111,7 +110,7 @@ angular.module('main')
           if (result.success && 'ok' === result.success) {
             domain.refreshAccounts()
             $mailboxScope.modal.hide()
-            $mailboxScope.newBox = {
+            $scope.newAccount = {
               login: '',
               password: ''
             }
