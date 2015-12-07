@@ -12,6 +12,46 @@
     </ion-refresher>
     <ion-list
       show-delete="domain.shouldShowDelete">
+      <div>
+        <ion-item class="item-divider item-icon-right">
+          <i class="icon ion-ios-list-outline"></i>
+          Рассылки
+        </ion-item>
+        <ion-item ng-repeat="list in domain.mailLists" type="item-text-wrap">
+          <h2>{{ list.maillist }}</h2>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="domain.deleteMailList(list.maillist)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="domain.deleteMailList(list.maillist)">
+            Удалить
+          </ion-option-button>
+        </ion-item>
+        <ion-item class="item-icon-left" ng-click="domain.addMailList()">
+          <i class="icon ion-ios-plus-empty"></i>
+          Добавить рассылку
+        </ion-item>
+      </div>
+      <div ng-if="domain.owner">
+        <ion-item class="item-divider item-icon-right">
+          <i class="icon ion-ios-people"></i>
+          Администраторы
+        </ion-item>
+        <ion-item ng-repeat="login in domain.deputies" type="item-text-wrap">
+          <h2>{{ login }}</h2>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="domain.deleteDeputy(login)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="domain.deleteDeputy(login)">
+            Удалить
+          </ion-option-button>
+        </ion-item>
+        <ion-item class="item-icon-left" ng-click="domain.addDeputy()">
+          <i class="icon ion-ios-plus-empty"></i>
+          Добавить администратора
+        </ion-item>
+      </div>
       <form ng-submit="domain.addMailbox()">
         <ion-item class="item-divider item-icon-right">
           <i class="icon ion-ios-email-outline"></i>
@@ -39,7 +79,7 @@
           </ion-delete-button>
           <ion-option-button class="button-assertive"
                              ng-click="domain.deleteMailbox(account)">
-            Delete
+            Удалить
           </ion-option-button>
         </ion-item>
 
@@ -49,27 +89,6 @@
           {{ '' === newAccount.login + '' ? 'ящик' : newAccount.login + '@' + domain.name }}
         </ion-item>
       </form>
-
-      <div ng-if="domain.owner">
-        <ion-item class="item-divider item-icon-right">
-          <i class="icon ion-ios-people"></i>
-          Администраторы
-        </ion-item>
-        <ion-item ng-repeat="login in domain.deputies" type="item-text-wrap">
-          <h2>{{ login }}</h2>
-          <ion-delete-button class="ion-minus-circled"
-                             ng-click="domain.deleteDeputy(login)">
-          </ion-delete-button>
-          <ion-option-button class="button-assertive"
-                             ng-click="domain.deleteDeputy(login)">
-            Delete
-          </ion-option-button>
-        </ion-item>
-        <ion-item class="item-icon-left" ng-click="domain.addDeputy()">
-          <i class="icon ion-ios-plus-empty"></i>
-          Добавить администратора
-        </ion-item>
-      </div>
     </ion-list>
 
   </ion-content>

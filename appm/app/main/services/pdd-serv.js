@@ -33,6 +33,17 @@ angular.module('main')
           return query('domain/register', {params: {domain: domain}, method: 'POST'})
         }
       },
+      ml: {
+        list: function (domain) {
+          return query('email/ml/list', {params: {domain: domain}, method: 'GET'})
+        },
+        add: function (params) {
+          return query('email/ml/add', {params: params, method: 'POST'})
+        },
+        'delete': function (params) {
+          return query('email/ml/del', {params: params, method: 'POST'})
+        }
+      },
       deputy: {
         list: function (domain) {
           return query('deputy/list', {params: {domain: domain}, method: 'POST'})

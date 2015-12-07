@@ -6,8 +6,22 @@ angular.module('main')
   domain.shouldShowDelete = false
   domain.name = $stateParams.domain
   domain.owner = true
-  domain.refreshDeputies = function () {
+  domain.refreshMailLists = function () {
     var log = debug('app:domain:deputies')
+    return PDD.ml.list(domain.name)
+      .then(function (result) {
+        domain.mailLists = result.maillists.reduce(function(prev, cur) {
+          return prev.concat(angular.isArray(cur) ? cur : [cur])
+        }, [])
+        log('maillists loaded ' + domain.mailLists.length)
+      })
+      .catch(function (err) {
+        log('error code: ' + err.code)
+        throw err
+      })
+  }
+  domain.refreshDeputies = function () {
+    var log = debug('app:domain:mailList')
     return PDD.deputy.list(domain.name)
       .then(function (result) {
         if (!result) {
@@ -26,6 +40,7 @@ angular.module('main')
         throw err
       })
   }
+
   domain.refreshAccounts = function () {
     var log = debug('app:domain:accounts')
     return PDD.email.query(domain.name)
@@ -39,7 +54,7 @@ angular.module('main')
       })
   }
   domain.doRefresh = function () {
-    $q.all([domain.refreshAccounts(), domain.refreshDeputies()])
+    $q.all([domain.refreshAccounts(), domain.refreshDeputies(), domain.refreshMailLists()])
       .then(function () {
         domain.error = null
       }, function (error) {
@@ -173,6 +188,72 @@ angular.module('main')
     aliasesModal.then(function (modal) {
       $aliasesScope.modal = modal
       modal.show()
+    })
+  }
+  // mailList
+  var $mailListScope = $scope.$root.$new()
+  var mailListModal = $ionicModal.fromTemplateUrl('main/templates/maillist_add.html', {
+    scope: $mailListScope,
+    animation: 'slide-in-up'
+  })
+  $mailListScope.mailList = {
+    name: ''
+  }
+
+  domain.addMailList = function () {
+    $mailListScope.domain = domain.name
+    $mailListScope.addMailList = function (name) {
+      var params = {
+        domain: domain.name,
+        maillist: name.toLowerCase()
+      }
+      PDD.ml.add(params)
+        .then(function (result) {
+          if (result.success && 'ok' === result.success) {
+            domain.refreshMailLists()
+            $mailListScope.modal.hide()
+            $mailListScope.mailList = {
+              name: ''
+            }
+          }
+          else if (result.error) {
+            throw new Error(result.error)
+          }
+          else {
+            throw new Error(angular.toJson(result))
+          }
+        }, function (err) {
+          alert('Error ' + err.message)
+        })
+    }
+    mailListModal.then(function (modal) {
+      $mailListScope.modal = modal
+      modal.show()
+    })
+  }
+
+  domain.deleteMailList = function (mailList) {
+    var params = {
+      domain: domain.name,
+      maillist: mailList
+    }
+    $ionicPopup.confirm({
+      title: 'Confirm delete',
+      template: 'Are you sure you want to remove ' + mailList + ' mail list?'
+    }).then(function (res) {
+      if (res) {
+        PDD.ml.delete(params)
+          .then(function (result) {
+            if (result.success && 'ok' === result.success) {
+              domain.refreshMailLists()
+            }
+            else {
+              throw result
+            }
+          }, function (err) {
+            alert('Error ' + angular.toJson(err))
+          })
+      }
     })
   }
 
