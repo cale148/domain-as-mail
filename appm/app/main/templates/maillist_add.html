@@ -7,10 +7,10 @@
   </ion-header-bar>
   <ion-content>
     <ion-list>
-      <form ng-submit="addMailList(mailLists.name)">
+      <form ng-submit="addMailList(mailList.name)">
         <label class="item item-input item-stacked-label">
-        <span class="input-label">Название рассылки</span>
-        <input type="text" ng-model="mailLists.name" required>
+          <span class="input-label">Название рассылки</span>
+          <input type="text" ng-model="mailList.name" required>
         </label>
         <div class="padding">
           <button type="submit" class="button button-balanced button-full">

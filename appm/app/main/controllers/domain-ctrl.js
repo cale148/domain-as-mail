@@ -46,13 +46,10 @@ angular.module('main')
       PDD.ml.deleteSubscribers(params)
         .then(function (result) {
           if (result.success && 'ok' === result.success) {
-            console.log('WAT')
-            var array = Object.keys($subscribersScope.subscribers).map(function(key) {
-              return $subscribersScope.subscribers[key]
-            })
-            var ind = array.indexOf(name)
-            array.splice(ind, 1)
-            $subscribersScope.subscribers = array;
+            var index = $subscribersScope.subscribers.indexOf(name)
+            if (-1 !== index) {
+              $subscribersScope.subscribers.splice(index, 1)
+            }
           }
           else {
             throw result
@@ -281,9 +278,7 @@ angular.module('main')
           if (result.success && 'ok' === result.success) {
             domain.refreshMailLists()
             $mailListScope.modal.hide()
-            $mailListScope.mailList = {
-              name: ''
-            }
+            $mailListScope.mailList.name = ''
           }
           else if (result.error) {
             throw new Error(result.error)
