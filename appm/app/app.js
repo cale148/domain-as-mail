@@ -3,6 +3,7 @@ angular.module('domainAsMail', [
   'ionic',
   'ngCordova',
   'ui.router',
+  'focus-if',
   'debug',
   'main',
   'signup'

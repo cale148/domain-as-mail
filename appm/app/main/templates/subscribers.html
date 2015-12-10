@@ -1,26 +1,41 @@
 <ion-modal-view>
   <ion-header-bar class="bar-royal">
+    <div class="buttons" ng-show="subscribers.length">
+      <button class="button button-icon icon ion-ios-minus-outline" ng-click="newSubscriber.shouldShowDelete = !newSubscriber.shouldShowDelete"></button>
+    </div>
     <h1 class="title">Подписчики {{ list.maillist }}</h1>
     <div class="buttons">
       <button class="button button-clear" ng-click="modal.hide()">Close</button>
     </div>
   </ion-header-bar>
   <ion-content>
-    <ion-list>
-      <form class="item item-input-inset" ng-submit="addSubscribers()">
+  <ion-list
+    show-delete="newSubscriber.shouldShowDelete && subscribers.length">
+      <form class="item item-input-inset" ng-submit="addSubscribers(newSubscriber.name)">
         <label class="item-input-wrapper">
-          <input ng-model="newSubscriber.name" type="text" placeholder="Email подписчика" required>
+          <input ng-model="newSubscriber.name" type="text" placeholder="Email подписчика" focus-if="newSubscriber.focus" required>
         </label>
         <button type="submit" class="button button-icon icon ion-plus-circled royal">
         </button>
       </form>
-      <ion-item ng-repeat="subscriber in subscribers | filter:newName">
+      <ion-item ng-repeat="subscriber in subscribers | filter:newSubscriber.name">
         {{ subscriber }}
 
         <ion-option-button class="button-assertive"
                            ng-click="delSubscribers(subscriber)">
           Delete
         </ion-option-button>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="delSubscribers(subscriber)">
+        </ion-delete-button>
+      </ion-item>
+
+      <ion-item class="item-divider">Добавить:</ion-item>
+
+      <ion-item class="item-button-right" ng-repeat="account in domain.accounts | filter: isNotSubscribe | filter:newSubscriber.name">
+        {{ account.login }}
+
+        <button ng-click="addSubscribers(account.login)" type="button" class="button button-icon icon ion-plus-circled royal"></button>
       </ion-item>
     </ion-list>
   </ion-content>

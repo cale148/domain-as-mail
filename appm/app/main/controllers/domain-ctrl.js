@@ -1,34 +1,48 @@
 'use strict'
 angular.module('main')
 .controller('DomainCtrl', function (debug, PDD, $q, $window, $scope, $stateParams, $ionicModal, $ionicPopup) {
+  var log = debug('app:domain:ctrl')
   var alert = $window.alert
   var domain = this
   domain.shouldShowDelete = false
   domain.name = $stateParams.domain
   domain.owner = true
 
-  var $subscribersScope = $scope.$root.$new()
+  var $subscribersScope = $scope.$new()
   var subscribersModal = $ionicModal.fromTemplateUrl('main/templates/subscribers.html', {
     scope: $subscribersScope,
     animation: 'slide-in-up'
   })
   $subscribersScope.newSubscriber = {
-    name: ''
+    name: '',
+    focus: false
+  }
+  $subscribersScope.isNotSubscribe = function (account) {
+    if ($subscribersScope.subscribers) {
+      return -1 === $subscribersScope.subscribers.indexOf(account.login)
+    }
+    else {
+      return true
+    }
   }
 
   domain.showSubscribers = function (list) {
     $subscribersScope.list = list
-    $subscribersScope.addSubscribers = function () {
+    log('domain.accounts', domain.accounts)
+    $subscribersScope.addSubscribers = function (subscriberName) {
       var params = {
         domain: domain.name,
         maillist: list.maillist,
-        subscriber: $subscribersScope.newSubscriber.name
+        subscriber: subscriberName
       }
       PDD.ml.addSubscribers(params)
         .then(function (result) {
           if (result.success && 'ok' === result.success) {
             $subscribersScope.subscribers.push(params.subscriber)
-            $subscribersScope.newSubscriber.name = ''
+            if (subscriberName === $subscribersScope.newSubscriber.name) {
+              $subscribersScope.newSubscriber.name = ''
+              $subscribersScope.newSubscriber.focus = true
+            }
           }
           else {
             throw result
@@ -263,7 +277,8 @@ angular.module('main')
     animation: 'slide-in-up'
   })
   $mailListScope.mailList = {
-    name: ''
+    name: '',
+    focus: false
   }
 
   domain.addMailList = function () {
@@ -277,8 +292,9 @@ angular.module('main')
         .then(function (result) {
           if (result.success && 'ok' === result.success) {
             domain.refreshMailLists()
-            $mailListScope.modal.hide()
             $mailListScope.mailList.name = ''
+            $mailListScope.mailList.focus = false
+            $mailListScope.modal.hide()
           }
           else if (result.error) {
             throw new Error(result.error)
@@ -292,7 +308,10 @@ angular.module('main')
     }
     mailListModal.then(function (modal) {
       $mailListScope.modal = modal
-      modal.show()
+      return modal.show()
+    })
+    .then(function () {
+      $mailListScope.mailList.focus = true
     })
   }
 
