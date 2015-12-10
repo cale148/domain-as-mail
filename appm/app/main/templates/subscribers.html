@@ -1,0 +1,27 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-royal">
+    <h1 class="title">Подписчики {{ list.maillist }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="modal.hide()">Close</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <form class="item item-input-inset" ng-submit="addSubscribers()">
+        <label class="item-input-wrapper">
+          <input ng-model="newSubscriber.name" type="text" placeholder="Email подписчика" required>
+        </label>
+        <button type="submit" class="button button-icon icon ion-plus-circled royal">
+        </button>
+      </form>
+      <ion-item ng-repeat="subscriber in subscribers | filter:newName">
+        {{ subscriber }}
+
+        <ion-option-button class="button-assertive"
+                           ng-click="delSubscribers(subscriber)">
+          Delete
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

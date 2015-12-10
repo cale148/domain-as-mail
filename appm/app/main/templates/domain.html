@@ -17,7 +17,7 @@
           <i class="icon ion-ios-list-outline"></i>
           Рассылки
         </ion-item>
-        <ion-item ng-repeat="list in domain.mailLists" type="item-text-wrap">
+        <ion-item ng-repeat="list in domain.mailLists" type="item-text-wrap" ng-click="domain.showSubscribers(list)">
           <h2>{{ list.maillist }}</h2>
           <ion-delete-button class="ion-minus-circled"
                              ng-click="domain.deleteMailList(list.maillist)">

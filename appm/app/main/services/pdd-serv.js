@@ -42,6 +42,15 @@ angular.module('main')
         },
         'delete': function (params) {
           return query('email/ml/del', {params: params, method: 'POST'})
+        },
+        listSubscribers: function (domain, maillist) {
+          return query('email/ml/subscribers?', {params: {domain: domain, maillist: maillist}, method: 'GET'})
+        },
+        addSubscribers: function (params) {
+          return query('email/ml/subscribe', {params: params, method: 'POST'})
+        },
+        'deleteSubscribers': function (params) {
+          return query('email/ml/unsubscribe', {params: params, method: 'POST'})
         }
       },
       deputy: {

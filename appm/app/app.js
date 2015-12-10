@@ -18,9 +18,9 @@ angular.module('domainAsMail', [
 .config(function ($ionicConfigProvider) {
   $ionicConfigProvider.views.maxCache(0)
 })
-.config(function ($ionicConfigProvider) {
-  $ionicConfigProvider.scrolling.jsScrolling(false)
-})
+//.config(function ($ionicConfigProvider) {
+//  $ionicConfigProvider.scrolling.jsScrolling(false)
+//})
 .run(function ($rootScope, debug) {
   var log = debug('app:$state')
   $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
