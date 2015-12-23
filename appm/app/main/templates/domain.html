@@ -1,22 +1,22 @@
 <ion-view view-title="{{ domain.name }}">
-  <ion-nav-buttons side="left">
-  </ion-nav-buttons>
-  <ion-nav-buttons side="right">
-    <button class="button button-icon icon ion-ios-minus-outline" ng-click="domain.shouldShowDelete = !domain.shouldShowDelete"></button>
-  </ion-nav-buttons>
+  <ion-nav-bar class="bar-royal">
+    <ion-nav-back-button>Назад</ion-nav-back-button>
+  </ion-nav-bar>
 
   <ion-content>
-    <ion-refresher
-      pulling-text="Pull to refresh..."
-      on-refresh="domain.doRefresh()">
-    </ion-refresher>
     <ion-list
       show-delete="domain.shouldShowDelete">
       <div>
-        <ion-item class="item-divider item-icon-right">
-          <i class="icon ion-ios-list-outline"></i>
-          Рассылки
+        <ion-item class="item-icon-right"
+                  ui-sref="main.dnsList({domain: domain.name})">
+          <i class="icon ion-earth"></i>
+          DNS Записи
         </ion-item>
+        <ion-item class="item-icon-right"
+                  ui-sref="main.maillistList({domain: domain.name})">
+        <i class="icon ion-ios-list-outline"></i>
+        Рассылки
+      </ion-item>
         <ion-item ng-repeat="list in domain.mailLists" type="item-text-wrap" ng-click="domain.showSubscribers(list)">
           <h2>{{ list.maillist }}</h2>
           <ion-delete-button class="ion-minus-circled"
@@ -27,68 +27,19 @@
             Удалить
           </ion-option-button>
         </ion-item>
-        <ion-item class="item-icon-left" ng-click="domain.addMailList()">
-          <i class="icon ion-ios-plus-empty"></i>
-          Добавить рассылку
-        </ion-item>
       </div>
       <div ng-if="domain.owner">
-        <ion-item class="item-divider item-icon-right">
+        <ion-item class="item-icon-right"
+                  ui-sref="main.deputies({domain:domain.name})">
           <i class="icon ion-ios-people"></i>
           Администраторы
         </ion-item>
-        <ion-item ng-repeat="login in domain.deputies" type="item-text-wrap">
-          <h2>{{ login }}</h2>
-          <ion-delete-button class="ion-minus-circled"
-                             ng-click="domain.deleteDeputy(login)">
-          </ion-delete-button>
-          <ion-option-button class="button-assertive"
-                             ng-click="domain.deleteDeputy(login)">
-            Удалить
-          </ion-option-button>
-        </ion-item>
-        <ion-item class="item-icon-left" ng-click="domain.addDeputy()">
-          <i class="icon ion-ios-plus-empty"></i>
-          Добавить администратора
-        </ion-item>
       </div>
-      <form ng-submit="domain.addMailbox()">
-        <ion-item class="item-divider item-icon-right">
+        <ion-item class="item-icon-right"
+            ui-sref="main.mailboxList({domain: domain.name})">
           <i class="icon ion-ios-email-outline"></i>
           Почтовые ящики
         </ion-item>
-
-        <div class="item item-input-inset">
-          <label class="item-input-wrapper">
-            <input ng-model="newAccount.login" type="text" placeholder="Поиск" required>
-          </label>
-        </div>
-
-        <ion-item
-          ng-repeat="account in domain.accounts|filter:newAccount.login"
-          class="item-icon-right"
-          type="item-text-wrap"
-          ui-sref="main.mailbox({domain: domain.name, login: account.login})">
-          <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
-          <p>
-            {{ account.fio }}
-          </p>
-          <i class="icon ion-chevron-right icon-accessory"></i>
-          <ion-delete-button class="ion-minus-circled"
-                             ng-click="domain.deleteMailbox(account)">
-          </ion-delete-button>
-          <ion-option-button class="button-assertive"
-                             ng-click="domain.deleteMailbox(account)">
-            Удалить
-          </ion-option-button>
-        </ion-item>
-
-        <ion-item class="item-icon-left" ng-click="domain.addMailbox()">
-          <i class="icon ion-ios-plus-empty"></i>
-          Добавить
-          {{ '' === newAccount.login + '' ? 'ящик' : newAccount.login + '@' + domain.name }}
-        </ion-item>
-      </form>
     </ion-list>
 
   </ion-content>

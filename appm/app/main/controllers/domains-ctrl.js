@@ -58,7 +58,7 @@ angular.module('main')
             throw new Error(angular.toJson(result));
           }
         }, function (err) {
-          alert('Error ' + err.message);
+          alert('Ошибка ' + err.message);
         });
     };
     addModal.then(function (modal) {
