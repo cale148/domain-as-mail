@@ -1,15 +1,15 @@
 <ion-modal-view>
   <ion-header-bar class="bar-royal">
-    <h1 class="title">Aliases for {{ account.login }}</h1>
+    <h1 class="title">Алиасы/псевдонимы для {{ account.login }}</h1>
     <div class="buttons">
-      <button class="button button-clear" ng-click="modal.hide()">Close</button>
+      <button class="button button-clear" ng-click="modal.hide()">Закрыть</button>
     </div>
   </ion-header-bar>
   <ion-content>
     <ion-list>
       <form class="item item-input-inset" ng-submit="addAlias(newAlias.name)">
         <label class="item-input-wrapper">
-          <input ng-model="newAlias.name" type="text" placeholder="Alias name" required>
+          <input ng-model="newAlias.name" type="text" placeholder="Алиас" required>
         </label>
         <button type="submit" class="button button-icon icon ion-plus-circled royal">
         </button>
@@ -19,7 +19,7 @@
 
         <ion-option-button class="button-assertive"
                            ng-click="delAlias(alias)">
-          Delete
+          Удалить
         </ion-option-button>
       </ion-item>
     </ion-list>

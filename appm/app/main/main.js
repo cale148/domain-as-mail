@@ -49,4 +49,40 @@ angular.module('main', [])
         }
       }
     })
+    .state('main.mailboxList', {
+      url: '/domain/:domain/mailbox',
+      views: {
+        'pageContent': {
+          templateUrl: 'main/templates/mailboxList.html',
+          controller: 'MailboxCtrlList as mailboxList'
+        }
+      }
+    })
+    .state('main.dnsList', {
+      url: '/domain/:domain/dns',
+      views: {
+        'pageContent': {
+          templateUrl: 'main/templates/dnslist.html',
+          controller: 'dnsCtrlList as dnsList'
+        }
+      }
+    })
+    .state('main.maillistList', {
+      url: '/domain/:domain/maillist',
+      views: {
+        'pageContent': {
+          templateUrl: 'main/templates/maillist_list.html',
+          controller: 'maillistCtrlList as maillistList'
+        }
+      }
+    })
+    .state('main.deputies', {
+      url: '/domain/:domain/deputies',
+      views: {
+        'pageContent': {
+          templateUrl: 'main/templates/deputylist.html',
+          controller: 'deputyCtrlList as deputyList'
+        }
+      }
+    })
 })

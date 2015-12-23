@@ -4,7 +4,7 @@ angular.module('main')
   var URL = Config.ENV.URL
   return function (apiKey) {
     var query = function (urlLocation, params) {
-      var q = angular.extend({
+      var q = angular.merge({
         url: URL + urlLocation,
         headers: {
           PddToken: apiKey
@@ -51,6 +51,20 @@ angular.module('main')
         },
         'deleteSubscribers': function (params) {
           return query('email/ml/unsubscribe', {params: params, method: 'POST'})
+        }
+      },
+      dns: {
+        list: function (domain) {
+          return query('dns/list?', {params: {domain: domain}, method: 'GET'})
+        },
+        add: function (params) {
+          return query('dns/add', {params: params, method: 'POST'})
+        },
+        'delete': function (params) {
+          return query('dns/del', {params: params, method: 'POST'})
+        },
+        edit: function (params) {
+          return query('dns/edit', {params: params, method: 'POST'})
         }
       },
       deputy: {
