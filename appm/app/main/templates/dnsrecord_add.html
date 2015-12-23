@@ -1,0 +1,28 @@
+<ion-modal-view>
+  <ion-header-bar class="bar-royal">
+    <h1 class="title">DNS запись {{ newDNS.type }}</h1>
+    <div class="buttons">
+      <button class="button button-clear" ng-click="dnsList.closeModal()">Закрыть</button>
+    </div>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <form ng-submit="processDNSRecord(newDNS)">
+        <label class="item item-input item-select">
+          <span class="input-label">Тип DNS записи</span>
+              <select ng-change="dnsList.refreshDNSRecordFieldList()" ng-options="recordType as recordType for recordType in recordTypeCollection" ng-model="newDNS.type">
+              </select>
+        </label>
+        <label class="item item-input item-stacked-label" ng-repeat="(key, title) in fields">
+          <span class="input-label">{{ title }}</span>
+          <input type="text" ng-model="newDNS[key]" required>
+        </label>
+        <div class="padding">
+          <button type="submit" class="button button-balanced button-full">
+            Сохранить!
+          </button>
+        </div>
+      </form>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

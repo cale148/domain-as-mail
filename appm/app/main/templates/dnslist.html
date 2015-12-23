@@ -1,0 +1,25 @@
+<ion-view view-title="DNS записи">
+  <ion-nav-bar class="bar-royal">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-plus-empty" ng-click="dnsList.processDNSRecord()"></button>
+  </ion-nav-buttons>
+    <ion-nav-back-button>Назад</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="dnsRecord in dnsList.dns" type="item-text-wrap" ng-click="dnsList.processDNSRecord(dnsRecord)">
+        <h2>{{ dnsRecord.type }} {{ dnsRecord.subdomain }}</h2>
+        <p>
+          {{ dnsRecord.content }}
+        </p>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="dnsList.deleteDNSRecord(dnsRecord.record_id, dnsRecord.type, dnsRecord.subdomain)">
+        </ion-delete-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="dnsList.deleteDNSRecord(dnsRecord.record_id, dnsRecord.type, dnsRecord.subdomain)">
+          Удалить
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
