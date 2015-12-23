@@ -1,0 +1,22 @@
+<ion-view view-title="Администраторы">
+  <ion-nav-bar class="bar-royal">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-plus-empty" ng-click="deputyList.addDeputy()"></button>
+  </ion-nav-buttons>
+    <ion-nav-back-button>Назад</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="login in deputyList.deputies" type="item-text-wrap"">
+        <h2>{{ login }}</h2>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="deputyList.deleteDeputy(login)">
+        </ion-delete-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="deputyList.deleteDeputy(login)">
+          Удалить
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>
