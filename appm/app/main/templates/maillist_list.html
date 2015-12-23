@@ -1,0 +1,22 @@
+<ion-view view-title="Рассылки">
+  <ion-nav-bar class="bar-royal">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-plus-empty" ng-click="maillistList.addMailList()"></button>
+  </ion-nav-buttons>
+    <ion-nav-back-button>Назад</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="list in maillistList.mailLists" type="item-text-wrap" ng-click="maillistList.showSubscribers(list)">
+        <h2>{{ list.maillist }}</h2>
+        <ion-delete-button class="ion-minus-circled"
+                           ng-click="maillistList.deleteMailList(list.maillist)">
+        </ion-delete-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="maillistList.deleteMailList(list.maillist)">
+          Удалить
+        </ion-option-button>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-view>

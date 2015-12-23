@@ -25,6 +25,7 @@ angular.module('main')
         $scope.$broadcast('scroll.refreshComplete')
       })
   }
+
   mailbox.doRefresh()
 
   var $aliasesScope = $scope.$root.$new()
@@ -47,7 +48,7 @@ angular.module('main')
         })
         .catch(function (err) {
           log('error code: ' + err)
-          alert('Error ' + err)
+          alert('Ошибка ' + err)
         })
     }
     var account = mailbox.account
@@ -60,7 +61,9 @@ angular.module('main')
     if (account.password) {
       return $ionicPopup.confirm({
         title: 'Изменение пароля',
-        template: 'Вы действительно хотите изменить пароль?'
+        template: 'Вы действительно хотите изменить пароль?',
+        cancelText: 'Отмена',
+        confirmText: 'ОК'
       }).then(function (res) {
         if (res) {
           return save(params)
@@ -83,7 +86,9 @@ angular.module('main')
     }
     $ionicPopup.confirm({
       title: 'Удаление',
-      template: 'Вы действительно хотите удалить ' + account.login + '?'
+      template: 'Вы действительно хотите удалить почтовый ящик ' + account.login + '?',
+      cancelText: 'Отмена',
+      confirmText: 'ОК'
     }).then(function (res) {
       if (res) {
         PDD.email.removeMailbox(params)
@@ -95,7 +100,7 @@ angular.module('main')
               throw result
             }
           }, function (err) {
-            alert('Error ' + angular.toJson(err))
+            alert('Ошибка ' + angular.toJson(err))
           })
       }
     })
@@ -120,7 +125,7 @@ angular.module('main')
             throw result
           }
         }, function (err) {
-          alert('Error ' + angular.toJson(err))
+          alert('Ошибка ' + angular.toJson(err))
         })
     }
     $aliasesScope.delAlias = function (name) {
@@ -138,7 +143,7 @@ angular.module('main')
             throw result
           }
         }, function (err) {
-          alert('Error ' + angular.toJson(err))
+          alert('Ошибка ' + angular.toJson(err))
         })
     }
     aliasesModal.then(function (modal) {

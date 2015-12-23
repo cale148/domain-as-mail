@@ -1,0 +1,38 @@
+<ion-view view-title="Почтовые ящики">
+  <ion-nav-bar class="bar-royal">
+  <ion-nav-buttons side="right">
+    <button class="button button-icon icon ion-ios-plus-empty" ng-click="mailboxList.addMailbox()"></button>
+  </ion-nav-buttons>
+    <ion-nav-back-button>Назад</ion-nav-back-button>
+  </ion-nav-bar>
+  <ion-content>
+    <ion-list>
+      <form ng-submit="domain.addMailbox()">
+        <div class="item item-input-inset">
+          <label class="item-input-wrapper">
+            <input ng-model="newAccount.login" type="text" placeholder="Поиск" required>
+          </label>
+        </div>
+
+        <ion-item
+          ng-repeat="account in mailboxList.accounts|filter:newAccount.login|filter:mailboxList.isNotMaillist"
+          class="item-icon-right"
+          type="item-text-wrap"
+          ui-sref="main.mailbox({domain: mailboxList.domain, login: account.login})">
+          <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
+          <p>
+            {{ account.fio }}
+          </p>
+          <i class="icon ion-chevron-right icon-accessory"></i>
+          <ion-delete-button class="ion-minus-circled"
+                             ng-click="mailboxList.deleteMailbox(account)">
+          </ion-delete-button>
+          <ion-option-button class="button-assertive"
+                             ng-click="mailboxList.deleteMailbox(account)">
+            Удалить
+          </ion-option-button>
+        </ion-item>
+      </form>
+    </ion-list>
+  </ion-content>
+</ion-view>
