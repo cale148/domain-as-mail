@@ -6,6 +6,10 @@
     <ion-nav-back-button>Назад</ion-nav-back-button>
   </ion-nav-bar>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="mailboxList.doRefresh()">
+    </ion-refresher>
     <ion-list>
       <form ng-submit="domain.addMailbox()">
         <div class="item item-input-inset">
@@ -21,7 +25,7 @@
           ui-sref="main.mailbox({domain: mailboxList.domain, login: account.login})">
           <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
           <p>
-            {{ account.fio }}
+            {{ account.fio }} Новых {{account.counters.new}} Непрочитанных {{account.counters.unread}}
           </p>
           <i class="icon ion-chevron-right icon-accessory"></i>
           <ion-delete-button class="ion-minus-circled"

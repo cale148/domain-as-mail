@@ -2,6 +2,7 @@
 angular.module('main')
   .controller('deputyCtrlList', function (debug, PDD, $q, $window, $scope, $stateParams, $ionicModal, $ionicPopup, $ionicHistory) {
     var deputyList = this
+    var log = debug('app:domain:deputyList')
     deputyList.shouldShowDelete = false
     deputyList.domain = $stateParams.domain
 
@@ -18,13 +19,20 @@ angular.module('main')
       $ionicHistory.goBack()
     }
 
-    deputyList.showDeputies = function () {
+    deputyList.doRefresh = function () {
       return PDD.deputy.list(deputyList.domain)
             .then(function (result) {
               deputyList.deputies = result.deputies.reduce(function(prev, cur) {
                 return prev.concat(angular.isArray(cur) ? cur : [cur])
               }, [])
             })
+        .catch(function (err) {
+          log('error code: ' + err.code)
+          throw err
+        })
+        .finally( function () {
+          $scope.$broadcast('scroll.refreshComplete')
+        })
     }
 
     deputyList.addDeputy = function () {
@@ -88,5 +96,5 @@ angular.module('main')
       })
     }
 
-    deputyList.showDeputies()
+    deputyList.doRefresh()
   })

@@ -32,6 +32,10 @@ angular.module('main')
         register: function (domain) {
           return query('domain/register', {params: {domain: domain}, method: 'POST'})
         }
+        ,
+        delete: function (domain) {
+          return query('domain/delete', {params: {domain: domain}, method: 'POST'})
+        }
       },
       ml: {
         list: function (domain) {
@@ -96,6 +100,9 @@ angular.module('main')
         },
         removeMailbox: function (params) {
           return query('email/del', {params: params, method: 'POST'})
+        },
+        countersMailbox: function (params) {
+          return query('email/counters?', {params: params, method: 'GET'})
         }
       }
     }

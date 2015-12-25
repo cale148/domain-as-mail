@@ -6,6 +6,10 @@
     <ion-nav-back-button>Назад</ion-nav-back-button>
   </ion-nav-bar>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="deputyList.doRefresh()">
+    </ion-refresher>
     <ion-list>
       <ion-item ng-repeat="login in deputyList.deputies" type="item-text-wrap"">
         <h2>{{ login }}</h2>

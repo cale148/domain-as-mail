@@ -5,6 +5,7 @@
 angular.module('main')
   .controller('maillistCtrlList', function (debug, PDD, $q, $window, $scope, $stateParams, $ionicModal, $ionicPopup, $ionicHistory) {
     var alert = $window.alert
+    var log = debug('app:domain:maillistList')
     var maillistList = this
     maillistList.domain = $stateParams.domain
 
@@ -43,9 +44,11 @@ angular.module('main')
             if (result.success && 'ok' === result.success) {
               $mailListScope.modal.hide()
               var newmailList = {
-                maillist : result.maillist
+                maillist : result.maillist,
+                cnt : 0
               }
               maillistList.mailLists.push(newmailList);
+              maillistList.refreshAccounts()
             }
             else if (result.error) {
               throw new Error(result.error)
@@ -84,6 +87,7 @@ angular.module('main')
                     break;
                   }
                 }
+                maillistList.refreshAccounts()
               }
               else {
                 throw result
@@ -100,6 +104,13 @@ angular.module('main')
          .then(function (result) {
            maillistList.mailLists = result.maillists
          })
+        .catch(function (err) {
+          log('error code: ' + err.code)
+          throw err
+        })
+        .finally(function () {
+          $scope.$broadcast('scroll.refreshComplete')
+        })
     }
 
     $subscribersScope.isNotSubscribe = function (account) {
@@ -132,6 +143,7 @@ angular.module('main')
           .then(function (result) {
             if (result.success && 'ok' === result.success) {
               $subscribersScope.subscribers.push(params.subscriber)
+              $subscribersScope.list.cnt++
               if (subscriberName === $subscribersScope.newSubscriber.name) {
                 $subscribersScope.newSubscriber.name = ''
                 $subscribersScope.newSubscriber.focus = true
@@ -158,6 +170,7 @@ angular.module('main')
               if (-1 !== index) {
                 $subscribersScope.subscribers.splice(index, 1)
               }
+              list.cnt--
             }
             else {
               throw result

@@ -8,10 +8,14 @@
   <ion-content>
     <ion-list>
       <form ng-submit="processDNSRecord(newDNS)">
-        <label class="item item-input item-select">
+        <label ng-if="!isEdit" class="item item-input item-select">
           <span class="input-label">Тип DNS записи</span>
-              <select ng-change="dnsList.refreshDNSRecordFieldList()" ng-options="recordType as recordType for recordType in recordTypeCollection" ng-model="newDNS.type">
+              <select ng-disabled="isEdit" ng-change="dnsList.refreshDNSRecordFieldList()" ng-options="recordType as recordType for recordType in recordTypeCollection" ng-model="newDNS.type">
               </select>
+        </label>
+        <label ng-if="isEdit" class="item item-input item-stacked-label">
+          <span class="input-label">Тип DNS записи</span>
+          <span class="input-label">"{{newDNS.type}}"</span>
         </label>
         <label class="item item-input item-stacked-label" ng-repeat="(key, title) in fields">
           <span class="input-label">{{ title }}</span>

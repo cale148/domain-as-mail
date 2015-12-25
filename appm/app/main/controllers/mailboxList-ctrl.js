@@ -25,11 +25,25 @@ angular.module('main')
     })
 
     mailboxList.doRefresh = function () {
+
       return PDD.email.query(mailboxList.domain)
         .then(function (result) {
           mailboxList.accounts = result.accounts.reduce(function(prev, cur) {
             return prev.concat(angular.isArray(cur) ? cur : [cur])
           }, [])
+        })
+        .then(function () {
+          mailboxList.accounts.map(function (acc) {
+            var
+              params = {
+                domain: mailboxList.domain,
+                login: acc.login.toLowerCase(),
+              }
+            return PDD.email.countersMailbox(params)
+              .then(function (result) {
+                acc.counters = result.counters
+              })
+          })
         })
         .catch(function (err) {
           log('error code: ' + err.code)

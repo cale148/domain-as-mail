@@ -8,9 +8,9 @@
       show-delete="domain.shouldShowDelete">
       <div>
         <ion-item class="item-icon-right"
-                  ui-sref="main.dnsList({domain: domain.name})">
-          <i class="icon ion-earth"></i>
-          DNS Записи
+                  ui-sref="main.mailboxList({domain: domain.name})">
+          <i class="icon ion-ios-email-outline"></i>
+          Почтовые ящики
         </ion-item>
         <ion-item class="item-icon-right"
                   ui-sref="main.maillistList({domain: domain.name})">
@@ -35,11 +35,13 @@
           Администраторы
         </ion-item>
       </div>
-        <ion-item class="item-icon-right"
-            ui-sref="main.mailboxList({domain: domain.name})">
-          <i class="icon ion-ios-email-outline"></i>
-          Почтовые ящики
-        </ion-item>
+      <div>
+      <ion-item class="item-icon-right"
+                ui-sref="main.dnsList({domain: domain.name})">
+        <i class="icon ion-earth"></i>
+        DNS Записи
+      </ion-item>
+      </div>
     </ion-list>
 
   </ion-content>

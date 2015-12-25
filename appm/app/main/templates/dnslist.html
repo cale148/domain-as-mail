@@ -6,6 +6,10 @@
     <ion-nav-back-button>Назад</ion-nav-back-button>
   </ion-nav-bar>
   <ion-content>
+    <ion-refresher
+      pulling-text="Pull to refresh..."
+      on-refresh="dnsList.doRefresh()">
+    </ion-refresher>
     <ion-list>
       <ion-item ng-repeat="dnsRecord in dnsList.dns" type="item-text-wrap" ng-click="dnsList.processDNSRecord(dnsRecord)">
         <h2>{{ dnsRecord.type }} {{ dnsRecord.subdomain }}</h2>

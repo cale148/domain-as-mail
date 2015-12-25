@@ -61,6 +61,10 @@ angular.module('main')
           log('error code: ' + err.code)
           throw err
         })
+        .finally( function () {
+          $scope.$broadcast('scroll.refreshComplete');
+        }
+        )
     }
 
     dnsList.doRefresh()
@@ -71,7 +75,7 @@ angular.module('main')
 
     dnsList.refreshDNSRecordFieldList = function() {
       var
-          type = $newDNSScope.newDNS.type
+        type = $newDNSScope.newDNS.type
 
       $newDNSScope.fields = {
         content: 'Содержимое DNS записи',
