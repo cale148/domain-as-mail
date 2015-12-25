@@ -1,6 +1,6 @@
 'use strict'
 angular.module('main')
-.controller('MailboxCtrl', function (debug, PDD, $q, $window, $scope, $stateParams, $ionicModal, $ionicPopup, $ionicHistory) {
+.controller('MailboxCtrl', function (debug, PDD, $q, $window, $scope, $stateParams, $ionicModal, $ionicPopup, $ionicHistory, $cordovaInAppBrowser) {
   var alert = $window.alert
   var log = debug('app:domain:mailbox')
   var mailbox = this
@@ -150,5 +150,33 @@ angular.module('main')
       $aliasesScope.modal = modal
       modal.show()
     })
+  }
+
+  mailbox.getOAuthToken = function (account) {
+    var params = {
+      domain: mailbox.domain,
+      uid: account.uid
+    }
+
+    PDD.email.getOAuthToken(params)
+      .then(function (result) {
+        if (result.success && 'ok' === result.success) {
+          mailbox.oauthToken = result['oauth-token']
+          var mailURL = 'https://passport.yandex.ru/passport?mode=oauth&access_token=' + mailbox.oauthToken + '&type=trusted-pdd-partner'
+          log('passport', mailURL)
+          if ($window.ionic.Platform.isWebView()) {
+            $cordovaInAppBrowser.open(mailURL, '_system')
+          }
+          else {
+            window.open(mailURL)
+          }
+        }
+        else if (result.error) {
+          throw new Error(result.error)
+        }
+        else {
+          throw new Error(angular.toJson(result))
+        }
+      })
   }
 })

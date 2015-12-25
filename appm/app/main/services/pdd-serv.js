@@ -103,6 +103,14 @@ angular.module('main')
         },
         countersMailbox: function (params) {
           return query('email/counters?', {params: params, method: 'GET'})
+        },
+        getOAuthToken: function (params) {
+          return query('email/get_oauth_token', {params: params, method: 'POST'})
+        }
+      },
+      passport: {
+        pass: function (token) {
+          return query('passport?', {access_token: token, type: 'trusted-pdd-partner', method: 'GET'})
         }
       }
     }
