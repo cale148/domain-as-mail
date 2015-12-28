@@ -5,6 +5,7 @@ angular.module('main')
     var log = debug('app:domain:mailboxList')
     var mailboxList = this
     mailboxList.domain = $stateParams.domain
+    mailboxList.owner = $stateParams.owner
 
     mailboxList.isBlocked = function (account) {
       return 'no' === account.enabled

@@ -38,10 +38,18 @@ angular.module('main', [])
           templateUrl: 'main/templates/domain.html',
           controller: 'DomainCtrl as domain'
         }
+      },
+      resolve: {
+        isOwner: function (PDD, $stateParams) {
+          return PDD.deputy.list($stateParams.domain).then(function (result) {
+            return !('not_master_admin' === result.error)
+          })
+        }
       }
+
     })
     .state('main.mailbox', {
-      url: '/domain/:domain/mailbox/:login',
+      url: '/domain/:domain/isOwner/:isOwner/mailbox/:login',
       views: {
         'pageContent': {
           templateUrl: 'main/templates/mailbox.html',
@@ -50,7 +58,7 @@ angular.module('main', [])
       }
     })
     .state('main.mailboxList', {
-      url: '/domain/:domain/mailbox',
+      url: '/domain/:domain/owner/:owner/mailbox',
       views: {
         'pageContent': {
           templateUrl: 'main/templates/mailboxList.html',

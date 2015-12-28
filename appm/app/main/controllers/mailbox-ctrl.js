@@ -5,6 +5,7 @@ angular.module('main')
   var log = debug('app:domain:mailbox')
   var mailbox = this
   mailbox.domain = $stateParams.domain
+  mailbox.isOwner = angular.fromJson($stateParams.isOwner) || false
   mailbox.login = $stateParams.login
 
   mailbox.doRefresh = function () {
@@ -15,6 +16,7 @@ angular.module('main')
       .then(function (result) {
         mailbox.account = result.account || {}
         mailbox.account.blocked = 'yes' !== mailbox.account.enabled
+        mailbox.realyBlocked = mailbox.account.blocked
         log('mailbox loaded ' + mailbox.account)
       })
       .catch(function (err) {
@@ -43,6 +45,7 @@ angular.module('main')
         .then(function (result) {
           mailbox.account = result.account || {}
           mailbox.account.blocked = 'yes' !== mailbox.account.enabled
+          mailbox.realyBlocked = mailbox.account.blocked
           log('mailbox saved ' + mailbox.account)
           mailbox.goBack()
         })

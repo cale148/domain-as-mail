@@ -15,7 +15,7 @@ angular.module('main')
         if (result.data.error) {
           switch (result.data.error) {
             case 'not_master_admin':
-              return false
+              return result.data
             default:
               throw new Error(result.data.error)
           }

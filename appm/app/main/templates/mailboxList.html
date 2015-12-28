@@ -22,7 +22,7 @@
           ng-repeat="account in mailboxList.accounts|filter:newAccount.login|filter:mailboxList.isNotMaillist"
           class="item-icon-right"
           type="item-text-wrap"
-          ui-sref="main.mailbox({domain: mailboxList.domain, login: account.login})">
+          ui-sref="main.mailbox({domain: mailboxList.domain, login: account.login, isOwner: mailboxList.owner})">
           <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
           <p>
             {{ account.fio }} Новых {{account.counters.new}} Непрочитанных {{account.counters.unread}}
