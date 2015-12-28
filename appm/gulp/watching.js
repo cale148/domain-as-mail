@@ -10,7 +10,9 @@ var bsInit = function (paths, openOverride) {
   var bsOptions = {
     server: {
       baseDir: paths
-    }
+    },
+    open: false,
+    notify: false
   };
   if (options.open === false) {
     bsOptions.open = false;
