@@ -16,13 +16,14 @@
         </div>
 
         <ion-item
-          ng-repeat="account in mailboxList.accounts|filter:newAccount.login|filter:mailboxList.isNotMaillist"
+          ng-repeat="account in mailboxList.accounts|filter:newAccount.login"
           class="item-icon-right"
           type="item-text-wrap"
           ui-sref="main.mailbox({domain: mailboxList.domain, login: account.login, isOwner: mailboxList.owner})">
-          <h2 ng-class="{'blocked-account': domain.isBlocked(account)}">{{ account.login }}</h2>
+          <h2 ng-class="{'assertive': mailboxList.isBlocked(account)}">{{ account.login }}</h2>
           <p>
-            {{ account.fio }} Новых {{account.counters.new}} Непрочитанных {{account.counters.unread}}
+            {{ account.fio }}
+            <span ng-if="account.counters">(новых: {{account.counters.new}}, непрочитанных: {{account.counters.unread}})</span>
           </p>
           <i class="icon ion-chevron-right icon-accessory"></i>
           <ion-delete-button class="ion-minus-circled"

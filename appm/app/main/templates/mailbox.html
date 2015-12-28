@@ -5,6 +5,14 @@
       on-refresh="mailbox.doRefresh()">
     </ion-refresher>
     <ion-list>
+      <ion-item class="item-icon-right" ng-click="mailbox.showAliases(mailbox.account)">
+        <i class="icon ion-ios-more"></i>
+        Управление алиасами
+      </ion-item>
+      <ion-item ng-if="mailbox.isOwner && !mailbox.realyBlocked" class="item-icon-right" ng-click="mailbox.getOAuthToken(mailbox.account)">
+        <i class="icon ion-chevron-right icon-accessory"></i>
+        Просмотреть почту
+      </ion-item>
       <label class="item item-input item-stacked-label">
         <span class="input-label">Фамилия</span>
         <input type="text" ng-model="mailbox.account.fname">
@@ -26,21 +34,18 @@
         <span class="input-label">Пароль</span>
         <input type="password" ng-model="mailbox.account.password">
       </label>
-      <ion-item class="item-icon-right" ng-click="mailbox.showAliases(mailbox.account)">
-        <i class="icon ion-ios-more"></i>
-        Управление алиасами
-      </ion-item>
-        <ion-item ng-if="mailbox.isOwner && !mailbox.realyBlocked" class="item-icon-right" ng-click="mailbox.getOAuthToken(mailbox.account)">
-          Просмотреть почту
-        </ion-item>
     </ion-list>
-    <div class="padding">
-      <button ng-click="mailbox.saveMailbox()" class="button button-balanced double-button">
-        Сохранить
-      </button>
-      <button ng-click="mailbox.goBack()" class="button button-dark button-clear double-button">
-        Отмена
-      </button>
+    <div class="row">
+      <div class="col">
+        <button ng-click="mailbox.saveMailbox()" class="button button-balanced button-block">
+          Сохранить
+        </button>
+      </div>
+      <div class="col">
+        <button ng-click="mailbox.goBack()" class="button button-dark button-clear button-block">
+          Отмена
+        </button>
+      </div>
     </div>
     <div class="padding">
       <button ng-click="mailbox.deleteMailbox()" class="button button-clear button-assertive button-full">

@@ -7,11 +7,14 @@ angular.module('main')
     mailboxList.domain = $stateParams.domain
     mailboxList.owner = $stateParams.owner
 
+    var isNotBlocked = function (account) {
+      return 'yes' === account.enabled
+    }
     mailboxList.isBlocked = function (account) {
-      return 'no' === account.enabled
+      return !isNotBlocked(account)
     }
 
-    mailboxList.isNotMaillist = function (account) {
+    var isNotMaillist = function (account) {
       return (account.maillist === 'no')
     }
 
@@ -26,25 +29,27 @@ angular.module('main')
     })
 
     mailboxList.doRefresh = function () {
-
       return PDD.email.query(mailboxList.domain)
         .then(function (result) {
           mailboxList.accounts = result.accounts.reduce(function(prev, cur) {
             return prev.concat(angular.isArray(cur) ? cur : [cur])
-          }, [])
+          }, []).filter(isNotMaillist)
         })
         .then(function () {
-          mailboxList.accounts.map(function (acc) {
-            var
-              params = {
-                domain: mailboxList.domain,
-                login: acc.login.toLowerCase(),
-              }
-            return PDD.email.countersMailbox(params)
-              .then(function (result) {
-                acc.counters = result.counters
-              })
-          })
+          mailboxList.accounts
+            .filter(isNotBlocked)
+            .map(function (acc) {
+              log('acc', acc)
+              var
+                params = {
+                  domain: mailboxList.domain,
+                  login: acc.login.toLowerCase(),
+                }
+              return PDD.email.countersMailbox(params)
+                .then(function (result) {
+                  acc.counters = result.counters
+                })
+            })
         })
         .catch(function (err) {
           log('error code: ' + err.code)
